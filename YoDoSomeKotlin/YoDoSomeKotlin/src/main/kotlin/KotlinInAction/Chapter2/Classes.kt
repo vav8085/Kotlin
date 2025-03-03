@@ -99,5 +99,14 @@ class Rectangle(private val width: Int, private val height: Int){
         get() = width == height
 }
 
+/*
+    This is another way to make a field with a private setter without using a backing field.
+ */
+class Triangle(private val side1: Int, private val side2: Int, private val side3: Int){
+    var isoSceles = false
+        get() = side1 == side2 || side2 == side3 || side3 ==side1
+        private set
+}
+
 
 
