@@ -35,9 +35,16 @@ fun main(){
 
 /*
     Map can be initialized in multiple ways in kotlin
+
+    note that infix functions can also be created using below syntax
+    infix fun fun() = ..
  */
 fun initializeMap(){
+    //function using infix notation
     val map = mutableMapOf(1 to "one", 2 to "Two")
+    //using function normally
+    val map2 = mutableMapOf(1.to("one"), 2.to("two"))
+    //or use Pair
     val map1 = mutableMapOf(Pair(1, "one"), Pair(2, "two"))
 }
 
