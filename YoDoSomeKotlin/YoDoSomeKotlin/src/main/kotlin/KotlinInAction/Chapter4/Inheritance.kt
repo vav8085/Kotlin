@@ -14,6 +14,13 @@ package com.vav.KotlinInAction.Chapter4
 
     If we override from an open class then all the overridden methods in it are by default open
     you have to explicitly mark them final in the superclass if you want to block inheritance
+
+    Having a class final has advantage that it can be smart cast as long as the variable being cast hasn't changed after
+    type check.
+    This means the class property must be a val without a custom accessor. This is because a custom accessor can change the
+    property. Also the property must be final because a subclass can create a custom accessor for it if its not.
+
+    Because most properties are final by default they can be smart cast
  */
 
 open class RichButton: Clickable{
