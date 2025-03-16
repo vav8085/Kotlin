@@ -1,0 +1,1 @@
+Notes from Kotlin Design Patterns and best Practices book by Alexey Soshin
