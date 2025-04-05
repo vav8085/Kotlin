@@ -67,7 +67,55 @@ class SocialUser1(private val account: Int): User{
     }
 }
 
+/*
+    To store a value you always will need a backing field
+    If we want to set data to this backing field then we can make
+    our field a var and then use a setter to set data to this backing field
+
+    A compiler creates a backing field in case of a default accessor automatically
+    below is how default accessor works
+    var address = "some address 10001, new york"
+
+    But when you explicitly define accessors then you have option to omit backing field
+    by not using 'field'. This can be done as above by using some other fields to calculate the
+    return value of current variable and provide a custom get() for it.
+
+    Note that we can also have a setter without a backing field
+ */
 
 
+class UserWithAddress() {
+    var address: String = ""
+        set(value) {
+            println("address = $value")
+            field = value
+        }
+}
 
+class UserWithAddressZip(val zipCode: String){
+    private var address: String
+        get() {
+            return "address is: some address $zipCode nyc"
+        }
+        set(value) {
+            //this can do any work but it wont assign a value
+            // because there is no backing field for address
+            println("address is: $value")
+        }
+}
+
+/*
+    Default visibility of accessor is same as variable itself.
+    But accessors can be made private
+    Notice that opposite is not possible. If a field is private
+    then its accessors cannot be public.
+ */
+
+class UserWithPhoneNumber{
+    var phoneNumber: Int = 0
+        get(){
+            return field
+        }
+        private set
+}
 
