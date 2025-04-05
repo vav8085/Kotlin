@@ -27,6 +27,46 @@ package com.vav.KotlinInAction.Chapter4
     Now B will keep an instance of final class F and in all the methods that dont need
     a change B will simply call methods of this final class F.
  */
-class ClassesDelegation {
+class ClassesDelegation<T>: Collection<T> {
+    private val arrayList = arrayListOf<T>()
+    override val size: Int
+        get() = arrayList.size
 
+    override fun isEmpty(): Boolean {
+        return arrayList.isEmpty()
+    }
+
+    override fun iterator(): Iterator<T> {
+        return arrayList.iterator()
+    }
+
+    override fun containsAll(elements: Collection<T>): Boolean {
+        return arrayList.containsAll(elements)
+    }
+
+    override fun contains(element: T): Boolean {
+        return arrayList.contains(element)
+    }
+}
+
+/*
+    In Kotlin we can avoid all the boilerplate code above using "by" keyword
+ */
+
+class CollectionDelegate<T>(arrayList: ArrayList<T> = arrayListOf()): Collection<T> by arrayList
+
+class CountingSet<T>(private val mutableSet: MutableSet<T> = mutableSetOf()): MutableCollection<T> by mutableSet{
+    var objectsCount = 0
+    override fun add(element: T): Boolean {
+        objectsCount++
+        return mutableSet.add(element)
+    }
+}
+
+fun main(){
+    val countingSet = CountingSet<Int>(mutableSetOf())
+    countingSet.add(2)
+    countingSet.add(3)
+    println(countingSet.objectsCount)
+    //2
 }
