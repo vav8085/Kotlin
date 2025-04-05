@@ -25,9 +25,34 @@ fun main(){
 
     println(person3 == person4)
     //true
+
+    //Example of Copy() method
+    val clive = PersonData("Clive", 28)
+    println(clive.toString())
+    val joshua = clive.copy(name = "Joshua", age = 16)
+    println(joshua.toString())
+
+    ///PersonData(name=Clive, age=28)
+    //PersonData(name=Joshua, age=16)
 }
 
 //Now lets do the same with data class
 
 data class PersonData(val name: String, val age: Int)
+
+//data class properties can be both val and var. It's better to
+//use val for immutability though. properties with var will also
+//generate setters
+
+data class PersonData1(var name: String, val age: Int)
+
+/*
+    On kotlin its a better practice to use the copy() method
+    over making a data class fields as var. This keeps the
+    original object immutable and creates a copy of the
+    object.
+
+    check main method for copy()
+ */
+
 
