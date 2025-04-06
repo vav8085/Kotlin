@@ -69,6 +69,34 @@ fun main(){
     }))
 
     Student.printName()
+
+    //we are passing listener to Button2
+    val button2 = Button2(listenerImpl)
+
+    //we can also do this following way
+    val button22 = Button2(object : TouchListener{
+        override fun onHover() {
+            println("button22 hovered")
+        }
+
+        override fun onTouch() {
+            println("button22 touched")
+        }
+    })
+
+    val dragView = DragView(object: DragListener{
+        override fun onDrag() {
+            TODO("Not yet implemented")
+        }
+    })
+
+    val dragView2 = DragView({ println("hello") })
+
+    val dragView4 = DragView2{ string ->
+        println(string)
+        string + "hello"
+    }
+
 }
 
 /*
@@ -98,3 +126,91 @@ class Student{
         }
     }
 }
+
+/*
+    Companion objects can also be used to create factory methods.
+    i.e. static methods that can be used to create objects of a class.
+ */
+
+class Employee{
+    constructor(name: String){
+
+    }
+    constructor(employeeNo: Int){
+
+    }
+}
+
+//the other way to do above is by making primary constructor private
+//and then use a companion object to create its instance
+//factory methods can be used to control creation of objects
+//for example you can add a condition that after employeeNo reaches 900 you stop creating new objects
+
+class Employee1 private constructor(name: String){
+    companion object{
+        fun getInstanceWithName(name: String){
+            Employee1(name)
+        }
+        fun getInstanceWithNameAndDepartment(employeeNo: Int){
+            Employee1(employeeNo.toString())
+        }
+    }
+}
+
+// Companion objects can also have name just like other objects
+//but usually because we can use them with class name, we dont name them
+
+class CompanionObjectWithName constructor(){
+    companion object Companion{
+        //do something
+    }
+}
+
+
+/*
+    Anonymous inner classes using Object expressions
+
+    Usually in kotlin we dont have interfaces with multiple
+    methods. We usually have an interface with just 1 method
+    because that can be converted to a lambda
+ */
+
+interface TouchListener{
+    fun onTouch()
+    fun onHover()
+}
+
+val listenerImpl = object : TouchListener{
+    override fun onTouch() {
+        println("View touched")
+    }
+
+    override fun onHover() {
+        println("View hovered")
+    }
+}
+
+class Button2(listener: TouchListener){
+    init {
+        listener.onTouch()
+        listener.onHover()
+    }
+}
+//Now go to Main method above
+
+
+//Below is how we can have a functional interface created with only 1 function
+fun interface DragListener{
+    fun onDrag()
+}
+
+fun interface DragListener2{
+    fun onDrag(string: String): String
+}
+
+class DragView(listener: DragListener){
+}
+
+class DragView2(listener: DragListener2){
+}
+//Now go to main
