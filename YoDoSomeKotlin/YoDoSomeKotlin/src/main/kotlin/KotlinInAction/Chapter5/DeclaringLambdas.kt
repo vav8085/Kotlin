@@ -13,6 +13,7 @@ fun main(){
     //returns 5
     lambdaWithoutInput()
     println("kotlin run ${kotlinRun(2,3)}")
+    lambdaAsLastParam()
 }
 
 fun lambdaWithoutInput(){
@@ -50,3 +51,18 @@ fun maxOrNullExample(){
     //when lambda simply delegates to a property
     val maxPerson5 = persons.maxByOrNull(Person::age)
 }
+
+fun lambdaAsLastParam(){
+    val people = listOf( Person("john", 34), Person("Batman", 28))
+
+    //the lambda is for transformation parameter in join to string
+    //because this is the last parameter, it can be moved outside like below
+    println(people.joinToString { it.name })
+    //john, Batman
+}
+
+/*
+    Accessing variable in scope
+
+    
+ */
