@@ -11,7 +11,7 @@ package com.vav.KotlinInAction.Chapter4
     So data classes are important
 */
 
-class Person(val name: String, age: Int)
+class Person(val name: String, val age: Int)
 
 fun main(){
     val person1 = Person("Ram", 22)
