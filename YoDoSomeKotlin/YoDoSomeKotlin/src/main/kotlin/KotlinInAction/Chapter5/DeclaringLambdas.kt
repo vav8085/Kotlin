@@ -64,5 +64,5 @@ fun lambdaAsLastParam(){
 /*
     Accessing variable in scope
 
-    
+
  */
