@@ -29,16 +29,36 @@ class ClassWithMembers{
     fun memberFunction(){
         println("hello I am a member of ClassWithMembers")
     }
+
+    fun memberFunction2(greeting: String){
+        println("$greeting I am a member of ClassWithMembers")
+    }
 }
 
 val propertyRef = ClassWithMembers::property
 //above is basically a lambda
 val propertyRef2 = {classWithMembers: ClassWithMembers -> classWithMembers.property}
 
-//function reference
+//function reference. you cant use it if class overloads functions with same name
+//for e.g.
+/*
+    fun memberFunction(){
+        println("hello I am a member of ClassWithMembers")
+    }
+
+    fun memberFunction(greeting: String){
+        println("$greeting I am a member of ClassWithMembers")
+    }
+ */
 val functionRef = ClassWithMembers::memberFunction
 //this is same as above
 val functionRef2 = {classWithMembers: ClassWithMembers -> classWithMembers.memberFunction()}
+
+//Notice that you can still use this syntax even if the function has an input
+val functionRef3 = ClassWithMembers::memberFunction2
+
+val functionRef4 =
+    { classWithMembers: ClassWithMembers, greeting: String -> classWithMembers.memberFunction2(greeting) }
 
 fun main(){
     val classWithMembers = ClassWithMembers()
