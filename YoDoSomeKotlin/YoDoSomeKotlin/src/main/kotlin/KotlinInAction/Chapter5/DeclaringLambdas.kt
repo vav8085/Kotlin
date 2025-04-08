@@ -43,12 +43,12 @@ fun maxOrNullExample(){
     val persons = listOf( Person("john", 34), Person("Batman", 28))
 
     val maxPerson = persons.maxByOrNull({person: Person ->  person.age})
-    val maxPerson2 = persons.maxByOrNull({person ->  person.age})
+    val maxPerson2 = persons.maxByOrNull({person -> person.age})
     //when lambda doesn't have any input
     val maxPerson3 = persons.maxByOrNull({it.age})
     //when lambda is the only argument
     val maxPerson4 = persons.maxByOrNull{it.age}
-    //when lambda simply delegates to a property
+    //when lambda simply delegates to a property Input::output
     val maxPerson5 = persons.maxByOrNull(Person::age)
 }
 
@@ -64,5 +64,22 @@ fun lambdaAsLastParam(){
 /*
     Accessing variable in scope
 
+    A lambda can access variables in surrounding scope
+    This can be local scope of surrounding method or all the way
+    up to class members
 
+    External variables that are accesses through the lambda are
+    said to be captured by the lambda
+
+    Notice that in java anonymous functions we can access
+    the class members but can access only the
+    final local variables of the enclosing functions
  */
+
+//lambda captures prefix
+//it can similarly capture class members
+fun addPrefixToName(names: List<String>, prefix: String){
+    names.forEach {
+        println("$prefix$it")
+    }
+}
