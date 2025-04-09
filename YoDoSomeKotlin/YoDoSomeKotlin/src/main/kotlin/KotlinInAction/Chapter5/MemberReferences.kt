@@ -67,6 +67,8 @@ fun main(){
     functionRef(classWithMembers)
     functionRef2(classWithMembers)
 
+    functionRef3(classWithMembers, "Hola")
+
     //no input
     ::topLevelRef.invoke()
     //this is similar to
