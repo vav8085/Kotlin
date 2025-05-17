@@ -25,6 +25,9 @@ import kotlin.time.Duration.Companion.milliseconds
         1.  Used to bridge the regular blocking code with suspending functions.
         2.  Runs a block of code as a coroutine and blocks the current thread until coroutine is complete.
         3.  From the code block / coroutine passed you can call suspending functions.
+        4.  ***By bridging regular code with suspending function means we call runBlocking in the main method and then
+            call any launch or async builders inside it. This is because runBlocking provides a coroutine scope(later discussed)
+            while launch and async either need a coroutine scope or they can be called from runBlocking.
  */
 
 
@@ -142,7 +145,7 @@ fun main4(){
 
 
 //runBlocking example 5 - two child coroutines
-fun main5(){
+fun main(){
     runBlocking {
         doSomethingSlowly()
         launch(Dispatchers.IO) {
@@ -152,11 +155,13 @@ fun main5(){
         launch(Dispatchers.IO) {
             println("child coroutine 2 is done")
         }
+        println("runBlocking last line")
     }
     println("Line after run blocking wont execute until its complete!")
 }
 //-after 2000 ms
 //runBlocking is done!
+//runBlocking last line
 //-no wait here it can execute while first child is waiting 4000ms
 //child coroutine 2 is done
 //after 4000 ms
@@ -166,7 +171,7 @@ fun main5(){
 
 
 //runBlocking example 6 - two runblocking at same level
-fun main(){
+fun main6(){
     runBlocking {
             delay(4000.milliseconds)
             println("runBlocking1 is finally done")
