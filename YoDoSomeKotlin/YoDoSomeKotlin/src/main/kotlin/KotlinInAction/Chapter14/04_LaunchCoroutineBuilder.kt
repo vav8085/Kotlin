@@ -43,3 +43,31 @@ fun main(){
 //NOTICE THAT LINE runBlocking last line AND child coroutine 2 is done CAN CHANGE PLACES. BECAUSE COROUTINE2
 //CAN EXECUTE BEFORE CODE GOES TO runBlocking last line. BUT IN MOST CASES IT WILL STAY WITH PARENT COROUTINE
 //IF PARENT AND CHILD ARE AT SAME LEVEL.
+
+
+
+
+fun mai(){
+    runBlocking {
+        doSomethingSlowly()
+        launch(Dispatchers.IO) {
+            delay(4000.milliseconds)
+            println("child coroutine 1 is finally done")
+        }
+        launch(Dispatchers.IO) {
+            delay(2000.milliseconds)
+            println("child coroutine 2 is done")
+        }
+        println("runBlocking last line")
+    }
+    println("Line after run blocking wont execute until its complete!")
+}
+
+//Below results will print "child coroutine 2 is done" after 2 seconds and "child coroutine 1 is finally done" after
+//4 seconds but it may include 2000 ms used by above coroutine because they are time sharing.
+
+//runBlocking is done!
+//runBlocking last line
+//child coroutine 2 is done
+//child coroutine 1 is finally done
+//Line after run blocking wont execute until its complete!

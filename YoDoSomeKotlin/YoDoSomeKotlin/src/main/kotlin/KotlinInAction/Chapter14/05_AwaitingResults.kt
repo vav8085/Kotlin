@@ -11,6 +11,8 @@ import kotlin.time.Duration.Companion.milliseconds
     *   With an object of Deferred type we can call await{} suspending function to collect results
         of the coroutine.
     *   Await will await the results of the suspending function passed to async
+    *   Awaiting two tasks can be done using await{}. But it dosnt mean we are waiting for them to return simultaneously.
+        they will return when they are done.
  */
 
 fun main(){
