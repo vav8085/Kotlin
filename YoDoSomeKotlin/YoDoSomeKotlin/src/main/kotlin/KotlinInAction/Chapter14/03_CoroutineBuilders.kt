@@ -56,6 +56,15 @@ suspend fun doSomethingSlowly(){
 
     Now lets check if we have 2 different child coroutine and one waits for 4000 ms and other does not.
     Will the second coroutine execute while first is waiting?
+    Yes the second can run while first is suspended.
+    ***check runBlocking example 5
+
+    Now lets try 2 different runBlocking while one block the main thread.
+    In this case because its runBlocking{} the forst one will block thread and second one wont execute because
+    thread is blocked.
+
+    So two launch at same level can run together. But 2 runBlocking cannot
+    ***check runBlocking example 6
 
 
 
@@ -133,7 +142,7 @@ fun main4(){
 
 
 //runBlocking example 5 - two child coroutines
-fun main(){
+fun main5(){
     runBlocking {
         doSomethingSlowly()
         launch(Dispatchers.IO) {
@@ -153,3 +162,21 @@ fun main(){
 //after 4000 ms
 //child coroutine 1 is finally done
 //Line after run blocking wont execute until its complete!
+
+
+
+//runBlocking example 6 - two runblocking at same level
+fun main(){
+    runBlocking {
+            delay(4000.milliseconds)
+            println("runBlocking1 is finally done")
+    }
+    runBlocking {
+        println("runBlocking2 is finally done")
+    }
+    println("Line after run blocking wont execute until its complete!")
+}
+//- both after 4000 ms
+//runBlocking1 is finally done
+//runBlocking2 is finally done
+
