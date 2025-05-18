@@ -13,4 +13,5 @@ package com.vav.KotlinInAction.Chapter15
         7.  async{} -  A coroutine builder same as launch in terms of job and context but returns value back
         8.  withContext{} - is a suspend function and used to switch context and suspend execution of parent
                             until its block is complete.
+        9. join() - You can call join using a child coroutine Job so the parent coroutine waits for it to complete
  */

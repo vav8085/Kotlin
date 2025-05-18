@@ -148,7 +148,7 @@ fun main4(){
 fun main(){
     runBlocking {
         doSomethingSlowly()
-        launch(Dispatchers.IO) {
+        val job = launch(Dispatchers.IO) {
             delay(4000.milliseconds)
             println("child coroutine 1 is finally done")
         }
