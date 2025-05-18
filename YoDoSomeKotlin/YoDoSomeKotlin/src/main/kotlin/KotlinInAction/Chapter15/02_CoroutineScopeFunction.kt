@@ -21,6 +21,8 @@ import kotlin.time.Duration.Companion.milliseconds
         a hierarchy either directly inside runBlocking or another coroutineScope.
     *   you cannot use coroutineScope directly in main without runBlocking. This is why they say runBlocking connects
         the non-suspending world to coroutines.
+    *   Note that coroutineScope will not wait for coroutines created by a custom scope like MyCoroutineScope which is
+        implementing CoroutineScope. It only waits for coroutines started directly from it and uses its own context.
  */
 
 

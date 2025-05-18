@@ -18,8 +18,9 @@ import kotlin.time.Duration.Companion.milliseconds
     withContext(Main) to display current progress
     Load some more data in IO dispatcher
 
-    NOTE: ALTHOUGH IT APPEARS THAT WITHCONTEXT WAITS FOR THE JOB TO COMPLETE. IT ONLY WAITS FOR THE CURRENT BLOCK
-    TO COMPLETE. IF WE LAUNCH MORE COROUTINES INSIDE IT USING LAUNCH THEN IT WONT WAIT FOR THEM
+    NOTE: ALTHOUGH IT APPEARS THAT WITHCONTEXT WAITS FOR THE JOB TO COMPLETE and suspends the parent coroutine.
+    IT ONLY WAITS FOR THE CURRENT BLOCK TO COMPLETE.
+    IF WE LAUNCH MORE COROUTINES INSIDE IT USING LAUNCH THEN IT WONT WAIT FOR THEM
  */
 
 fun main11(){
@@ -66,4 +67,45 @@ fun main14(){
 //hello from runblocking
 //2000 ms wait
 //hello from runblocking 2
+//runblocking ends
+
+fun main16(){
+    runBlocking {
+        println("hello from runblocking")
+        withContext(Dispatchers.Default) {
+            val job = launch {
+                delay(4000.milliseconds)
+                println("hello from launch")
+            }
+            delay(2000.milliseconds)
+            println("hello from withcontext")
+        }
+        println("runblocking ends")
+    }
+}
+//withcontext did not wait for child coroutine. "hello from withcontext" prints before "hello from launch"
+//hello from runblocking
+//hello from withcontext
+//hello from launch
+//runblocking ends
+
+fun main(){
+    runBlocking {
+        println("hello from runblocking")
+        withContext(Dispatchers.Default) {
+            val job = launch {
+                delay(4000.milliseconds)
+                println("hello from launch")
+            }
+            job.join()
+            delay(2000.milliseconds)
+            println("hello from withcontext")
+        }
+        println("runblocking ends")
+    }
+}
+//after joining child coroutine with withcontext. withcontext has to wait for child to complete. this is normal with join()
+//hello from runblocking
+//hello from launch
+//hello from withcontext
 //runblocking ends
