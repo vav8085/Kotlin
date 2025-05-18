@@ -17,6 +17,9 @@ import kotlin.time.Duration.Companion.milliseconds
     Load some data in IO dispatcher
     withContext(Main) to display current progress
     Load some more data in IO dispatcher
+
+    NOTE: ALTHOUGH IT APPEARS THAT WITHCONTEXT WAITS FOR THE JOB TO COMPLETE. IT ONLY WAITS FOR THE CURRENT BLOCK
+    TO COMPLETE. IF WE LAUNCH MORE COROUTINES INSIDE IT USING LAUNCH THEN IT WONT WAIT FOR THEM
  */
 
 fun main11(){
@@ -50,7 +53,7 @@ fun main12(){
 //runblocking ends
 
 
-fun main(){
+fun main14(){
     runBlocking {
         println("hello from runblocking")
         runBlocking {
