@@ -29,13 +29,17 @@ import kotlin.time.Duration.Companion.milliseconds
 //our coroutineScope waits for both the await to return before it returns the value to sum variable
 fun main(){
     runBlocking {
+        println("runblocking start")
         computeSum()
+        println("runblocking end")
     }
 }
 suspend fun computeSum(){
     val sum = coroutineScope {
+        println("inside coroutineScope")
         val a = async { generateValue() }
         val b = async { generateValue() }
+        println("last step coroutineScope")
         a.await() + b.await()
     }
     println("sum is $sum")
@@ -46,4 +50,8 @@ suspend fun generateValue(): Int{
     return Random.nextInt(0,10)
 }
 
-//sum is 16
+//runblocking start
+//inside coroutineScope
+//last step coroutineScope
+//sum is 5
+//runblocking end
