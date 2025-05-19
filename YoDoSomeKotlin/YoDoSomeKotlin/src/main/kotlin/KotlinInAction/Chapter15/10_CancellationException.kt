@@ -10,6 +10,17 @@ import kotlin.time.Duration.Companion.seconds
 /*
     *   Coroutines when canceled throw a CancellationException at specific points
     *   These specific points are where there is a suspend function called it can throw CancellationException
+    *   Not all suspend functions throw CancellationException. Only those who call a suspend function like delay()
+        throw this exception.
+    *   This is called Cooperative Cancellation. If your suspend function function1 call functions like delay(), yield()..
+        then it Cooperates in the cancellation.
+    *   The other way to make a suspend function cooperative is by checking in that function:
+            while (currentCoroutineContext().isActive) { //do work
+
+    *   Another method Kotlin provides is ensureActive()
+        ensureActive() will check if coroutine is active, if not then it will throw CancellationException
+        You can call ensureActive() while doing some work.
+
 
         IMPT:
     *   COROUTINE USES THIS EXCEPTION TO PROPAGATE CANCELLATION OF OTHER
