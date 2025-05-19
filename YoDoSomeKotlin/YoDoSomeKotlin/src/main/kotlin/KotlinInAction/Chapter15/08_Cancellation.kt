@@ -23,7 +23,7 @@ import kotlin.time.Duration.Companion.milliseconds
         For this you can catch the CancellationException and close any resources and throw it again.
 
     *   Framework can also cancel a coroutine. For example, in Android we have viewModelScope which cancels any coroutines
-        once ViewModel instance is cleared. 
+        once ViewModel instance is cleared.
  */
 
 
