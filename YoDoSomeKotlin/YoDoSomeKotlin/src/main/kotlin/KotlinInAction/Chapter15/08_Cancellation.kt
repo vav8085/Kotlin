@@ -16,6 +16,14 @@ import kotlin.time.Duration.Companion.milliseconds
     *   Another case if we are making some network calls sequentially using one response as request for another. In
         this case of one intermediate request fails then we would want to fail an entire or partial chain.
     *   All CoroutineBuilders return objects like Job and Deferred and provide methods like cancel() to cancel the coroutine.
+
+
+    *   Always be careful about coroutine cancellation when acquiring resources. If a coroutine gets canceled when you have
+        some resources like database connection or file stream open then they will get leaked.
+        For this you can catch the CancellationException and close any resources and throw it again.
+
+    *   Framework can also cancel a coroutine. For example, in Android we have viewModelScope which cancels any coroutines
+        once ViewModel instance is cleared. 
  */
 
 
