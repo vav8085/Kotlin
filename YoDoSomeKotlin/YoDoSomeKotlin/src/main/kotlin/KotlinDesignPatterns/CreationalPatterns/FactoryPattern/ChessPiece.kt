@@ -5,6 +5,7 @@ package com.vav.KotlinDesignPatterns.CreationalPatterns.FactoryPattern
 //We will have a ChessPiece interface with file, rank and name of the piece
 //Our goal is to write a method createPiece which can take a notation and return its corresponding object
 //createPiece(notation: String) function is a factory method
+
 interface ChessPiece {
     val name: String
     val file: Char
