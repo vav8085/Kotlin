@@ -9,6 +9,12 @@ package com.vav.KotlinInAction.Chapter6
 
     *   Note that groupBy{} applies lambda to each collection value and groups them with computation results. Associate
         on the other hand always returns a Pair and values mapping to same key replace each other instead of getting grouped.
+
+    *   associateWith{} -   While in associate we can calculate both key and value from collection. Sometimes we just want
+                            to calculate value of our map while its key remains the original items in collection.
+
+    *   assoviateBy{}   -   This is similar to associateWith{} but now our lambda calculates the key and value of the generated
+                            map is our original collection items
  */
 
 fun main() {
@@ -17,6 +23,10 @@ fun main() {
     groupByPerson()
     separator()
     associateFx()
+    separator()
+    associateWithPerson()
+    separator()
+    associateByPerson()
 }
 
 fun groupByFx() {
@@ -47,3 +57,12 @@ fun associateFx(){
 //{0=1, 1=2, 2=37, 3=6, 4=4, 5=3}
 //{Agent001=1, Agent002=2, Agent0037=37, Agent006=6, Agent004=4, Agent003=3}
 
+fun associateWithPerson(){
+    println(personAge.associateWith { it.age })
+}
+//{Person(name=Batman, age=33)=33, Person(name=Spiderman, age=22)=22, Person(name=Flash, age=21)=21, Person(name=Robin, age=21)=21}
+
+fun associateByPerson(){
+    println(personAge.associateBy { it.age })
+}
+//{33=Person(name=Batman, age=33), 22=Person(name=Spiderman, age=22), 21=Person(name=Robin, age=21)}
