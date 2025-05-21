@@ -5,6 +5,10 @@ package com.vav.KotlinInAction.Chapter6
     *   These methods take a lambda. They tell you true or false if some value exist in collection.
     *   none can be replaced with !any. similarly there is !all which means any.
     *   Using right predicate is the key but they can also be used other ways.
+    *   find{} finds the first instance that satisfied the condition.
+    *   count{} returns the count of instances that match the condition.
+    *   Its easy to use a filter then take its size to find count but it will create a new collection. So using count
+        is much better
  */
 
 fun main() {
