@@ -32,7 +32,7 @@ fun maxByOrNullEx() {
 //37
 //37
 //you
-val personAge = listOf(Person("Batman", 33), Person("Spiderman", 22), Person("Flash", 21))
+val personAge = listOf(Person("Batman", 33), Person("Spiderman", 22), Person("Flash", 21),Person("Robin", 21))
 
 fun maxByOrNullPerson() {
     println(personAge.maxByOrNull { it.age })
