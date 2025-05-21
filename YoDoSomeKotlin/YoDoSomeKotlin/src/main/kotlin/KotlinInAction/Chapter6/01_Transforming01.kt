@@ -5,7 +5,8 @@ package com.vav.KotlinInAction.Chapter6
     *   Filter function is used to filter some collection and get the values that can pass through the filter condition.
     *   Filter does not transform the collection it only extracts the values from the collection.
 
-    *   Map allows you to transform the collection and return the output of transformation.
+    *   Map allows you to transform the collection and return the output of transformation. Map applies the lambda
+        to each value in collection.
  */
 
 
