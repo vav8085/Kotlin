@@ -1,6 +1,6 @@
 package com.vav.KotlinInAction.Chapter5
 
-import com.vav.KotlinInAction.Chapter4.Person
+import com.vav.KotlinInAction.Chapter4.code.Person
 
 /*
     A first class function is a function that can be treated as a value
@@ -43,7 +43,7 @@ class Button{
     next item with it
  */
 
-fun findMaximum(persons :List<Person>): Person{
+fun findMaximum(persons :List<Person>): Person {
     var maxPerson = persons[0]
 
     for(i in 1..persons.size - 1){
@@ -74,7 +74,7 @@ public inline fun <T, R : Comparable<R>> Iterable<T>.maxByOrNull(
         return it.age
     })!!
  */
-fun findMaximumKotlin(persons: List<Person>): Person{
+fun findMaximumKotlin(persons: List<Person>): Person {
     return persons.maxByOrNull { it: Person -> it.age }!!
 }
 
@@ -82,7 +82,7 @@ fun findMaximumKotlin(persons: List<Person>): Person{
     In above lambda we are just delegating to a single property age so lambda can
     be written as Person::age which means the same thing above
  */
-fun findMaximumKotlinDelegate(persons: List<Person>): Person{
+fun findMaximumKotlinDelegate(persons: List<Person>): Person {
     return persons.maxByOrNull(Person::age)!!
 }
 

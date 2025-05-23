@@ -1,6 +1,6 @@
 package com.vav.KotlinInAction.Chapter5
 
-import com.vav.KotlinInAction.Chapter4.Person
+import com.vav.KotlinInAction.Chapter4.code.Person
 
 /*
     A lambda can be declared using a syntax { input -> output }
