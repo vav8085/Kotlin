@@ -6,7 +6,4 @@ package com.vav.KotlinInAction.Chapter16
     *   2 Types:
             1.  Shared Flows - used for broadcasting
             2.  State Flows - special case of communicating state
-
-    *   
-
  */
