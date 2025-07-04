@@ -1,1 +1,0 @@
-Notes from Coding Interview Patterns book
