@@ -1,1 +1,1 @@
-Notes from Mobile System Design book
+Notes from Mobile System Design book. Notes are shortened and based on my own understanding. May not adhere completely with book.
