@@ -1,5 +1,0 @@
-package MobileSystemDesign.Chapter03
-
-/**
- *
- */
