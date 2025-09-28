@@ -37,9 +37,9 @@ fun windowedFx() {
     val windowedWithSteps = listOfIntegers.windowed(size = 2, step = 2)
     println(windowedWithSteps)
     val newListOfIntegers = listOfIntegers.toMutableList()
-    newListOfIntegers.addLast(45) //will be discarded because window is not full.
+    //newListOfIntegers.addLast(45) //will be discarded because window is not full.
     println(newListOfIntegers.windowed(size = 2, step = 2))
-    newListOfIntegers.addLast(55)
+    //newListOfIntegers.addLast(55)
     println(newListOfIntegers.windowed(size = 2, step = 2))
     println(newListOfIntegers.windowed(size = 2, step = 3))
     val list = listOf(1, 2, 3, 4, 5, 6, 7)

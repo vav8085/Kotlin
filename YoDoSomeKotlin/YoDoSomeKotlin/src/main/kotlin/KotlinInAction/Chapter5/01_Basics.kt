@@ -2,6 +2,8 @@ package com.vav.KotlinInAction.Chapter5
 
 /*
     Traditional way we would create a click listener like below
+
+    But amazing thing about lambdas are that you dont need to create an interface
  */
 
 class Button {
