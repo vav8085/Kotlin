@@ -60,7 +60,19 @@ class TimeBasedKeyValueStorage {
     }
 
     fun scanByPrefixAt(key: String, prefix: String, timestamp: Int): List<String> {
+        val record = cache[key] ?: return emptyList()
 
+        val output = mutableListOf<String>()
+
+        for(field in record.keys){
+            if(!field.startsWith(prefix)) continue
+
+            val history = record[field] ?: continue
+
+            val value = history[history.floorKey(timestamp)] ?: continue
+            output.add("$field($value)")
+        }
+        return output.sortedWith { a,b -> a.compareTo(b) }.toList()
     }
 
 }
