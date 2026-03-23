@@ -2,6 +2,10 @@ package org.example.KeyValueStorage
 
 import java.util.TreeMap
 
+/*
+    Record has fields and fields have versions with timestamps. Each version also has a ttl.
+     so if ttl expires then that version is no longer valid
+ */
 class TimeBasedKeyValueStorageWithTTL {
 
     val cache = hashMapOf<String, HashMap<String, TreeMap<Int, Pair<String, Int?>?>>>()
@@ -40,9 +44,32 @@ class TimeBasedKeyValueStorageWithTTL {
     }
 
     fun scanAt(key: String, timestamp: Int): List<String> {
-        
+        val record = cache[key] ?: return emptyList()
+
+        //now again we have to go over all the fields
+        //there shouldnt be any use of ttl here
+
+        val output = mutableListOf<String>()
+
+        for(field in record.keys){
+            val history = record[field] ?: continue
+
+            //floorKey can return null. if it returns null then there is no floor timestamp
+            val floorTime = history.floorKey(timestamp) ?: continue
+
+            val floorPair = history[floorTime] ?: continue
+
+            // now we will return all the values which are less than ttl
+            val expiry = floorPair.second
+
+            if(expiry != null && timestamp >= expiry) continue
+
+            output.add("${field}(${floorPair.first})")
+        }
+        return output.sortedWith { a, b -> a.compareTo(b) }
     }
 
     fun scanByPrefixAt(key: String, prefix: String, timestamp: Int): List<String> {
+
     }
 }
