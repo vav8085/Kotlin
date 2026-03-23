@@ -1,6 +1,7 @@
 package org.example.KeyValueStorage
 
 import java.util.TreeMap
+import kotlin.collections.emptyList
 
 /*
     Very similar to time based key value store leetcode problem
@@ -15,7 +16,7 @@ class TimeBasedKeyValueStorage {
     val cache = hashMapOf<String, HashMap<String, TreeMap<Int, String?>>>()
 
     fun setAt(key: String, field: String, value: String, timestamp: Int) {
-        cache.getOrPut(key) { hashMapOf() }.getOrPut(field){ TreeMap() }[timestamp] = value
+        cache.getOrPut(key) { hashMapOf() }.getOrPut(field) { TreeMap() }[timestamp] = value
 
 //        val record = cache.getOrDefault(key, hashMapOf())
 //        val history = record.getOrDefault(field, TreeMap())
@@ -34,14 +35,28 @@ class TimeBasedKeyValueStorage {
         val record = cache[key] ?: return false
         val history = record[field] ?: return false
         val floorTime = history.floorKey(timestamp) ?: return false
-        if(history[floorTime] != null) {
+        if (history[floorTime] != null) {
             history[timestamp] = null
             return true
         } else return false
     }
 
     fun scanAt(key: String, timestamp: Int): List<String> {
-        
+        val record = cache[key] ?: return emptyList()
+
+        val output = mutableListOf<String>()
+
+        //now we dont have a specific field so we will go over all fields
+        for(field in record.keys){
+            //A field has a value that changes over time timestamp -> value
+            //We will be finding the floorkey for this field and add it to output
+            //if no data for this fields history then continue
+            val history = record[field] ?: continue
+
+            val value = history[history.floorKey(timestamp)] ?: continue
+            output.add("$field($value)")
+        }
+        return output.sortedWith { a,b -> a.compareTo(b) }.toList()
     }
 
     fun scanByPrefixAt(key: String, prefix: String, timestamp: Int): List<String> {
